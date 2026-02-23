@@ -29,7 +29,7 @@ RUN BASE_URL=/gephi-lite/ npm run build
 # https://hub.docker.com/_/node/tags
 FROM nginx:latest AS production
 
-COPY --from=build /gephi-lite/packages/gephi-lite/build/ /var/www/html/
+COPY --from=build /gephi-lite/packages/gephi-lite/build /var/www/html/gephi-lite
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 
 # OCI Labels
