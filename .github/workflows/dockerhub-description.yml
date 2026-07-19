@@ -1,0 +1,53 @@
+name: dockerhub-description
+
+# ============================================================
+# Project configuration — edit these values for your project.
+#
+# Set DOCKERHUB_REPOSITORY to a non-empty value (namespace/name) to
+# enable the description sync. Leave blank to skip the sync step.
+# For GHCR-only projects, the cleanest approach is to delete this
+# workflow file entirely — that avoids spinning up a runner just to
+# skip the single step.
+# ============================================================
+env:
+  DOCKERHUB_REPOSITORY: psaintelligence/gephi-lite-path
+
+
+on:
+  push:
+    branches:
+      - main
+      - dev
+    paths:
+      - 'README.md'
+
+
+permissions:
+  contents: read
+
+
+# Cancel superseded runs — only one description sync needs to land.
+concurrency:
+  group: dockerhub-description-${{ github.ref }}
+  cancel-in-progress: true
+
+
+jobs:
+
+  sync-description:
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Sync Docker Hub description
+        if: env.DOCKERHUB_REPOSITORY != ''
+        uses: peter-evans/dockerhub-description@v5
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          repository: ${{ env.DOCKERHUB_REPOSITORY }}
+          readme-filepath: ./README.md
+          enable-url-completion: true

@@ -4,7 +4,7 @@ FROM docker.io/alpine/git:latest AS clone
 
 # https://github.com/gephi/gephi-lite/tags
 #  @gephi/gephi-lite@1.0.2 = 2025-12-01
-ARG COMMIT_TAG=" @gephi/gephi-lite@1.0.2"
+ARG COMMIT_TAG="@gephi/gephi-lite@1.0.2"
 ARG SOURCE_REPO="https://github.com/gephi/gephi-lite.git"
 
 WORKDIR /clone

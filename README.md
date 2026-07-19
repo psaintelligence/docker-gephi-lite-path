@@ -19,8 +19,6 @@ graph compute endpoint.
   behind any reverse proxy or load balancer.
 - **Pinned upstream releases** - each image tag is built from a specific
   `gephi/gephi-lite` release for reproducibility.
-- **GitHub login proxy** - nginx proxies `/_github/login` → `https://github.com/login`
-  to support Gephi Lite's GitHub open/save flow without mixed-content issues.
 
 ## Quick start
 
